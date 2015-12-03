@@ -29,6 +29,6 @@ http.createServer(function(req, res) {
 		var key = params.retrieve;
 		var json = cache[key];
 		res.end(cache[key]);
-		//delete cache[key]; //test this
+		delete cache[key];
 	}
 }).listen(process.env.PORT || 1337);
