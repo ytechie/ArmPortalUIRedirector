@@ -16,7 +16,7 @@ http.createServer(function(req, res) {
 		cache[key] = params.json;
 		
 		var retrievalUrl = 'http://armportaluiredirector.azurewebsites.net/?retrieve=' + key;
-		retrievalUrl = encodeURI(retrievalUrl);
+		retrievalUrl = encodeURIComponent(retrievalUrl);
 		
 		var redir = params.redir;
 		redir = redir.replace('{jsonUrl}', retrievalUrl);
