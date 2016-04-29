@@ -39,12 +39,14 @@ http.createServer(function(req, res) {
 			res.setHeader('Location', redir);
 			res.end();
 		}
-	}
-	if(params['retrieve']) {
+	} else if(params['retrieve']) {
 		var key = params.retrieve;
 		var json = cache[key];
 		res.end(cache[key]);
 		delete cache[key];
+	} else {
+		res.setHeader('Access-Control-Allow-Origin', '*');
+		res.end();
 	}
 }).listen(process.env.PORT || 1337);
 
