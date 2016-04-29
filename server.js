@@ -24,6 +24,7 @@ http.createServer(function(req, res) {
 				var retrievalUrl = handleStoreRequest(json);
 				//res.statusCode = 200;
 				res.setHeader('Access-Control-Allow-Origin', '*');
+				res.setHeader('Access-Control-Allow-Headers', '*');
 				res.end(retrievalUrl);
 			});
 		} else if(req.method === 'OPTIONS') {
