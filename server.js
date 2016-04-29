@@ -23,6 +23,7 @@ http.createServer(function(req, res) {
 				console.log('Received JSON via POST: ' +  json);
 				var retrievalUrl = handleStoreRequest(json);
 				//res.statusCode = 200;
+				res.setHeader('Access-Control-Allow-Origin', '*');
 				res.end(retrievalUrl);
 			});
 		} else {
