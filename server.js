@@ -24,12 +24,12 @@ http.createServer(function(req, res) {
 				var retrievalUrl = handleStoreRequest(json);
 				//res.statusCode = 200;
 				res.setHeader('Access-Control-Allow-Origin', '*');
-				res.setHeader('Access-Control-Allow-Headers', '*');
+				res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 				res.end(retrievalUrl);
 			});
 		} else if(req.method === 'OPTIONS') {
 			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Access-Control-Allow-Headers', '*');
+			res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 			res.end();
 		} else {
 			json = params.json;
