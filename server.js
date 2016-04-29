@@ -26,6 +26,9 @@ http.createServer(function(req, res) {
 				res.setHeader('Access-Control-Allow-Origin', '*');
 				res.end(retrievalUrl);
 			});
+		} else if(req.method === 'OPTIONS') {
+			res.setHeader('Access-Control-Allow-Origin', '*');
+			res.end();
 		} else {
 			json = params.json;
 			
@@ -44,9 +47,6 @@ http.createServer(function(req, res) {
 		var json = cache[key];
 		res.end(cache[key]);
 		delete cache[key];
-	} else {
-		res.setHeader('Access-Control-Allow-Origin', '*');
-		res.end();
 	}
 }).listen(process.env.PORT || 1337);
 
