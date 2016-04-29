@@ -21,13 +21,22 @@ http.createServer(function(req, res) {
 			
 			req.on('end', function() {
 				console.log('Received JSON via POST: ' +  json);
-				handleStoreRequest(params, json, res);
+				var retrievalUrl = handleStoreRequest(json);
+				//res.statusCode = 200;
+				res.end(retrievalUrl);
 			});
 		} else {
 			json = params.json;
 			
 			console.log('Received JSON via GET: ' +  json);
-			handleStoreRequest(params, json, res);
+			var retrievalUrl = handleStoreRequest(json);
+			
+			var redir = params.redir;
+			redir = redir.replace('{jsonUrl}', retrievalUrl);
+	
+			res.statusCode = 302;
+			res.setHeader('Location', redir);
+			res.end();
 		}
 	}
 	if(params['retrieve']) {
@@ -38,17 +47,12 @@ http.createServer(function(req, res) {
 	}
 }).listen(process.env.PORT || 1337);
 
-function handleStoreRequest(params, json, res) {
+function handleStoreRequest(json) {
 	var key = Math.round(Math.random() * 100000000);
 	cache[key] = json;
 	
 	var retrievalUrl = 'http://armportaluiredirector.azurewebsites.net/?retrieve=' + key;
 	retrievalUrl = encodeURIComponent(retrievalUrl);
 	
-	var redir = params.redir;
-	redir = redir.replace('{jsonUrl}', retrievalUrl);
-	
-	res.statusCode = 302;
-	res.setHeader('Location', redir);
-	res.end();
+	return retrievalUrl;
 }
